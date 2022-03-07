@@ -1,0 +1,59 @@
+# enable color support of ls and also add handy aliases
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+## start programs 
+alias idea="zsh ${HOME}/Programs/.startIdea"
+alias chrome="nohup google-chrome-stable &"
+alias clion="zsh ${HOME}/Programs/.startClion"
+alias pycharm="zsh ${HOME}/Programs/.startPycharm"
+alias goland="zsh ${HOME}/Programs/.startGoLand"
+alias slack="nohup slack &"
+
+# some more ls aliases
+alias ll='ls -altrh'
+alias l='ls -CF'
+
+#moving through directories
+alias ..='cd ..'
+alias ...='cd ../../../'
+alias ....='cd ../../../../'
+alias .....='cd ../../../../'
+alias .4='cd ../../../../'
+alias .5='cd ../../../../..'
+alias pushc='pushd -n $(pwd)'
+
+if [ "$(uname)" = "Darwin" ]; then
+    # Using MAC OS, use brew instead
+# alias brew='sudo brew install'      
+elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
+    # Using Linux, use apt-get
+    alias apt-get="sudo apt-get"
+    alias updatey="sudo apt-get --yes"
+    alias update='sudo apt-get update && sudo apt-get upgrade'
+fi
+
+# reboot / halt / poweroff
+alias reboot='sudo /sbin/reboot'
+alias halt='sudo /sbin/halt'
+alias shutdown='sudo /sbin/shutdown'
+
+## pass options to free ##
+alias meminfo='free -m -l -t'
+ 
+## get top process eating memory
+alias psmem='ps auxf | sort -nr -k 4'
+alias psmem10='ps auxf | sort -nr -k 4 | head -10'
+ 
+## get top process eating cpu ##
+alias pscpu='ps auxf | sort -nr -k 3'
+alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
+ 
+## Get server cpu info ##
+alias cpuinfo='lscpu'
+ 
+## get GPU ram on desktop / laptop##
+alias gpumeminfo='grep -i --color memory /var/log/Xorg.0.log'
