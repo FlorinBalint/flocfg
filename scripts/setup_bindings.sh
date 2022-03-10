@@ -64,4 +64,4 @@ which is completely different.
 }
 '
 
-echo ${WINDOWS_BINDINGS_FILE} > ~/Library/KeyBindings/DefaultKeyBindings.Dict
+echo ${WINDOWS_BINDINGS_FILE} > ~/Library/KeyBindings/DefaultKeyBinding.Dict
