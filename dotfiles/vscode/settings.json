@@ -1,0 +1,52 @@
+{
+  "workbench.iconTheme": "material-icon-theme",
+  "editor.formatOnSave": true,
+  "workbench.preferredHighContrastColorTheme": "Default Dark+",
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter.notebook.ipynb"
+  },
+  "workbench.colorTheme": "Default Dark+",
+  "python.pythonPath": "/usr/bin/python3",
+  "redhat.telemetry.enabled": false,
+  "window.zoomLevel": 3,
+  "[dart]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.rulers": [
+      80
+    ],
+    "editor.selectionHighlight": false,
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.suggestSelection": "first",
+    "editor.tabCompletion": "onlySnippets",
+    "editor.wordBasedSuggestions": false
+  },
+  "files.exclude": {
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
+  },
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "dart.debugSdkLibraries": true,
+  "dart.devToolsBrowser": "default",
+  "dart.flutterShowEmulators": "always",
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  "editor.formatOnType": true,
+  "editor.selectionHighlight": false,
+  "editor.tabCompletion": "onlySnippets",
+  "editor.wordBasedSuggestions": false,
+  "editor.accessibilitySupport": "off",
+  "go.toolsManagement.autoUpdate": true,
+  "dart.previewLsp": true,
+  "terminal.external.osxExec": "/Applications/iTerm.app",
+  "editor.fontFamily": "Menlo, Monaco, 'Courier New', monospace, Menlo for Powerline",
+  "terminal.integrated.fontFamily": "Menlo for Powerline",
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "git-graph.commitDetailsView.location": "Docked to Bottom",
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.fontSize": 10
+}
