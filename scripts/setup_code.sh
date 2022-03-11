@@ -7,44 +7,6 @@
 script_dir="$(dirname "$0")"
 source ${script_dir}/environment.sh || exit 1
 
-__VS_CODE_EXTENSIONS__="
-CyriacduChatenet.monterey-dark-theme
-Equinusocio.vsc-community-material-theme
-Equinusocio.vsc-material-theme
-equinusocio.vsc-material-theme-icons
-dbaeumer.vscode-eslint
-donjayamanne.githistory
-mhutchie.git-graph
-Dart-Code.dart-code
-Dart-Code.flutter
-golang.go
-ecmel.vscode-html-css
-formulahendry.auto-rename-tag
-googlecloudtools.cloudcode
-k--kato.intellij-idea-keybindings
-ms-azuretools.vscode-docker
-ms-dotnettools.csharp
-ms-kubernetes-tools.vscode-kubernetes-tools
-ms-python.python
-ms-python.vscode-pylance
-ms-toolsai.jupyter
-ms-toolsai.jupyter-keymap
-ms-toolsai.jupyter-renderers
-ms-vscode.cpptools
-ms-vscode.hexeditor
-PKief.material-icon-theme
-redhat.java
-redhat.vscode-yaml
-ryuta46.multi-command
-VisualStudioExptTeam.vscodeintellicode
-vscjava.vscode-java-debug
-vscjava.vscode-java-dependency
-vscjava.vscode-java-pack
-vscjava.vscode-java-test
-vscjava.vscode-maven
-Zignd.html-css-class-completion
-"
-
 function install_vscode() {
   if $(environment_mac); then
     brew install --cask visual-studio-code
@@ -60,7 +22,9 @@ function install_vscode() {
 }
 
 function install_vscode_extensions() {
-  for extension in $@; do
+  extensions=$( less ${script_dir}/../configs/vscode/extensions.txt ) 
+
+  for extension in ${extensions}; do
     code --install-extension "${extension}"
   done
 }
@@ -78,5 +42,5 @@ function edit_vscode_settings() {
 }
 
 install_vscode
-install_vscode_extensions ${__VS_CODE_EXTENSIONS__}
+install_vscode_extensions
 edit_vscode_settings
