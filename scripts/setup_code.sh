@@ -3,22 +3,7 @@
 script_dir="$(dirname "$0")"
 source ${script_dir}/environment.sh || exit 1
 
-function install_vscode() {
-  if $(environment_mac); then
-    brew install --cask visual-studio-code
-  elif $(environment_linux); then
-    wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
-    sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-    sudo apt install code
-    sudo apt update
-    sudo apt upgrade
-  else
-    exit "script only works for linux and mac OS"
-  fi
-}
-
-function install_vscode_extensions() {
-  extensions="
+__VS_CODE_EXTENSIONS__="
 CyriacduChatenet.monterey-dark-theme
 Equinusocio.vsc-community-material-theme
 Equinusocio.vsc-material-theme
@@ -56,7 +41,22 @@ vscjava.vscode-maven
 Zignd.html-css-class-completion
 "
 
-  for extension in ${extensions}; do
+function install_vscode() {
+  if $(environment_mac); then
+    brew install --cask visual-studio-code
+  elif $(environment_linux); then
+    wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+    sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+    sudo apt install code
+    sudo apt update
+    sudo apt upgrade
+  else
+    exit "script only works for linux and mac OS"
+  fi
+}
+
+function install_vscode_extensions() {
+  for extension in $@; do
     code --install-extension "${extension}"
   done
 }
@@ -74,5 +74,5 @@ function edit_vscode_settings() {
 }
 
 install_vscode
-install_vscode_extensions
+install_vscode_extensions ${__VS_CODE_EXTENSIONS__}
 edit_vscode_settings
