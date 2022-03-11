@@ -19,7 +19,6 @@ get_fonts() {
     exit "script only works for linux and macOS"
   fi
 
-
   if [ $(ls ${fonts_dir} | grep "Menlo.*Powerline.ttf" | wc -l) -ne 4 ]; then
     echo "Installing Menlo for Powerline font"
     cd ${HOME}/Work/Repos && git clone https://github.com/abertsch/Menlo-for-Powerline.git
@@ -35,7 +34,6 @@ setup_iterm() {
   if [ -z "$(brew info iterm2)" ]; then
     echo "Installing iterm2"
     brew install --cask iterm2
-    
   else
     echo "iterm2 is already installed"  
   fi

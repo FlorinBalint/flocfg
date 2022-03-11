@@ -23,4 +23,3 @@ mkdir -p ${HOME}/Work/scripts
 mkdir -p ${HOME}/Work/books
 
 mkdir -p ${HOME}/bills
-

@@ -24,7 +24,6 @@ install_vscode() {
 
 install_vscode_extensions() {
   extensions=$( less ${SCRIPT_DIR}/../configs/vscode/extensions.txt) 
-
   for extension in ${extensions}; do
     code --install-extension "${extension}"
   done
