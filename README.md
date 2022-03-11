@@ -1,2 +1,2 @@
 # flocfg
-Repository holding common dev configs
+Repository holding common dev configuration scripts.

@@ -1,4 +1,8 @@
 #!/bin/sh
+#
+# Script for installing and configuring VS Code to the prefered look & behaviour.
+# The script sets the keybindings and settings by overriding the existing ones
+# (if any) with the config files found in the configs/vscode repository folder.
 
 script_dir="$(dirname "$0")"
 source ${script_dir}/environment.sh || exit 1

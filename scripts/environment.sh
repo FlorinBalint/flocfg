@@ -1,4 +1,7 @@
 #!/bin/sh
+#
+# Simple shell library for making assertions and queries
+# about the environment or platform.
 
 if ! [ "${ENVIRONMENT_SH_LIB__:-}" ]; then
  declare -i ENVIRONMENT_SH_LIB=0

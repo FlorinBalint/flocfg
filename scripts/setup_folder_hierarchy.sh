@@ -1,9 +1,11 @@
 #!/bin/sh
+#
+# Script for creating the default folder hierarchy on a new
+# unix/linux working station.
 
 make_learn_folder() {
     local LANGS="c cpp java go js ts python bash"
     local FWORKS="spring angular react flutter"
-    
 
     for dir in ${LANGS} ${FWORKS}
     do
