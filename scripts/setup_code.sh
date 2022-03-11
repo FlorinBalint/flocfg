@@ -63,11 +63,11 @@ function install_vscode_extensions() {
 
 function edit_vscode_settings() {
    if environment_mac; then
-     cp ${script_dir}/../dotfiles/vscode/settings.json "${HOME}/Library/Application Support/Code/User"
-     cp ${script_dir}/../dotfiles/vscode/keybindings.json "${HOME}/Library/Application Support/Code/User"
+     cp ${script_dir}/../configs/vscode/settings.json "${HOME}/Library/Application Support/Code/User"
+     cp ${script_dir}/../configs/vscode/keybindings.json "${HOME}/Library/Application Support/Code/User"
    elif environment_linux; then
-     cp ${script_dir}/../dotfiles/vscode/settings.json "${HOME}/.config/Code/User"
-     cp ${script_dir}/../dotfiles/vscode/keybindings.json "${HOME}/.config/Code/User"
+     cp ${script_dir}/../configs/vscode/settings.json "${HOME}/.config/Code/User"
+     cp ${script_dir}/../configs/vscode/keybindings.json "${HOME}/.config/Code/User"
    else
      exit "script only works for linux and mac OS"
    fi
