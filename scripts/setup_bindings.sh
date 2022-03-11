@@ -4,10 +4,11 @@
 # match the default behavior on Windows / Linux systems.
 # The script assumes that you already reversed cmd <-> ctrl.
 
-script_dir="$(dirname "$0")"
-source ${script_dir}/environment.sh || exit 1
+SCRIPT=`realpath $0`
+SCRIPT_DIR=`dirname $SCRIPT`
+source ${SCRIPT_DIR}/environment.sh || exit 1
 
-WINDOWS_BINDINGS_FILE="${script_dir}/../configs/DefaultKeyBinding.Dict"
+WINDOWS_BINDINGS_FILE="${SCRIPT_DIR}/../configs/DefaultKeyBinding.Dict"
 
 if environment_mac; then
   mkdir -p ${HOME}/Library/KeyBindings/

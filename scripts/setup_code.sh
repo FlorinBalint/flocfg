@@ -4,8 +4,9 @@
 # The script sets the keybindings and settings by overriding the existing ones
 # (if any) with the config files found in the configs/vscode repository folder.
 
-script_dir="$(dirname "$0")"
-source ${script_dir}/environment.sh || exit 1
+SCRIPT=`realpath $0`
+SCRIPT_DIR=`dirname $SCRIPT`
+source ${SCRIPT_DIR}/environment.sh || exit 1
 
 install_vscode() {
   if $(environment_mac); then
@@ -22,7 +23,7 @@ install_vscode() {
 }
 
 install_vscode_extensions() {
-  extensions=$( less ${script_dir}/../configs/vscode/extensions.txt) 
+  extensions=$( less ${SCRIPT_DIR}/../configs/vscode/extensions.txt) 
 
   for extension in ${extensions}; do
     code --install-extension "${extension}"
@@ -31,11 +32,11 @@ install_vscode_extensions() {
 
 edit_vscode_settings() {
    if environment_mac; then
-     cp ${script_dir}/../configs/vscode/settings.json "${HOME}/Library/Application Support/Code/User"
-     cp ${script_dir}/../configs/vscode/keybindings.json "${HOME}/Library/Application Support/Code/User"
+     cp ${SCRIPT_DIR}/../configs/vscode/settings.json "${HOME}/Library/Application Support/Code/User"
+     cp ${SCRIPT_DIR}/../configs/vscode/keybindings.json "${HOME}/Library/Application Support/Code/User"
    elif environment_linux; then
-     cp ${script_dir}/../configs/vscode/settings.json "${HOME}/.config/Code/User"
-     cp ${script_dir}/../configs/vscode/keybindings.json "${HOME}/.config/Code/User"
+     cp ${SCRIPT_DIR}/../configs/vscode/settings.json "${HOME}/.config/Code/User"
+     cp ${SCRIPT_DIR}/../configs/vscode/keybindings.json "${HOME}/.config/Code/User"
    else
      exit "script only works for linux and mac OS"
    fi
