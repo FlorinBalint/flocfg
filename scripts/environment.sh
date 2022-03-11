@@ -9,7 +9,7 @@ fi
 
 if (( ENVIRONMENTS_SH_LIB++ == 0 )); then
 
-  function environment_os () {
+  environment_os () {
     case $(uname | tr '[:upper:]' '[:lower:]') in
     linux*)
       echo "linux"
@@ -26,7 +26,7 @@ if (( ENVIRONMENTS_SH_LIB++ == 0 )); then
     esac  
   }
 
-  function environment_linux () {
+  environment_linux () {
     if [ $(environment_os) = "linux" ]; then
       return 0;
     else
@@ -34,7 +34,7 @@ if (( ENVIRONMENTS_SH_LIB++ == 0 )); then
     fi;
   }
 
-  function environment_mac () {
+  environment_mac () {
     if [ $(environment_os) = "mac" ]; then
       return 0;
     else
@@ -42,7 +42,7 @@ if (( ENVIRONMENTS_SH_LIB++ == 0 )); then
     fi;
   }
 
-  function environment_windows () {
+  environment_windows () {
     if [ $(environment_os) = "windows" ]; then
       return 0;
     else
@@ -50,7 +50,7 @@ if (( ENVIRONMENTS_SH_LIB++ == 0 )); then
     fi;
   }
 
-  function environment_unknown () {
+  environment_unknown () {
     if [ $(environment_os) = "unknown" ]; then
       return 0;
     else

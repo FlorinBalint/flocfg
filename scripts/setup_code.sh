@@ -7,7 +7,7 @@
 script_dir="$(dirname "$0")"
 source ${script_dir}/environment.sh || exit 1
 
-function install_vscode() {
+install_vscode() {
   if $(environment_mac); then
     brew install --cask visual-studio-code
   elif $(environment_linux); then
@@ -21,15 +21,15 @@ function install_vscode() {
   fi
 }
 
-function install_vscode_extensions() {
-  extensions=$( less ${script_dir}/../configs/vscode/extensions.txt ) 
+install_vscode_extensions() {
+  extensions=$( less ${script_dir}/../configs/vscode/extensions.txt) 
 
   for extension in ${extensions}; do
     code --install-extension "${extension}"
   done
 }
 
-function edit_vscode_settings() {
+edit_vscode_settings() {
    if environment_mac; then
      cp ${script_dir}/../configs/vscode/settings.json "${HOME}/Library/Application Support/Code/User"
      cp ${script_dir}/../configs/vscode/keybindings.json "${HOME}/Library/Application Support/Code/User"
