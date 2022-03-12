@@ -9,9 +9,9 @@ SCRIPT_DIR=`dirname $SCRIPT`
 source ${SCRIPT_DIR}/environment.sh || exit 1
 
 install_vscode() {
-  if $(environment_mac); then
+  if environment_mac; then
     brew install --cask visual-studio-code
-  elif $(environment_linux); then
+  elif environment_linux; then
     wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
     sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
     sudo apt install code
