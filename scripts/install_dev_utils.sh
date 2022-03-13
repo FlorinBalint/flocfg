@@ -8,10 +8,6 @@ SCRIPT=`realpath $0`
 SCRIPT_DIR=`dirname $SCRIPT`
 source ${SCRIPT_DIR}/environment.sh || exit 1
 
-install_homebrew() {
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-}
-
 setup_golang() {
   if environment_mac; then
     brew update && brew install golang
@@ -51,33 +47,55 @@ setup_python() {
   fi
 }
 
-if environment_mac; then
-  install_homebrew
+setup_mac_utils() {
+  # Install Homebrew if needed
+  if [ $(command -v brew) == "" ]; then
+    echo "Homebrew is already installed"
+  else
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+
   brew install coreutils
   brew install gmsh
   brew install git
   brew install docker
   brew install kubectl
   brew install helm
-elif environment_linux; then
+}
+
+setup_linux_utils() {
   sudo apt update -y
   sudo apt install -y coreutils
   sudo apt-get install gmsh -y
   sudo apt intsall -y git
   sudo apt-get install docker-ce docker-ce-cli containerd.io
-  ( # Install kubectl
+
+  if [ $(kubectl version --client) ]; then
+    echo "kubectl is already installed"
+  else
+    # Install kubectl
     sudo apt-get install -y apt-transport-https ca-certificates curl
     sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
     echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
     sudo apt-get install -y kubectl
-  )
-  ( # Install helm
+  fi
+
+  if [ $(helm version) ]; then
+    echo "helm is already installed"
+  else
+    # Install helm
     curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
     sudo apt-get install apt-transport-https --yes
     echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
     sudo apt-get update
     sudo apt-get install helm
-  )
+  fi
+}
+
+if environment_mac; then
+  setup_mac_utils
+elif environment_linux; then
+  setup_linux_utils
 else
   exit "script only works for linux and mac OS"
 fi
