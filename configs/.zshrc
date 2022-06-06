@@ -76,6 +76,11 @@ source $ZSH/oh-my-zsh.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
+export GOPATH="/Users/${USER}/Work/Repos/go"
+export GOBIN=$GOPATH/bin
+export GOROOT=$(go env GOROOT)
+export PATH="$PATH:$GOBIN:${GOROOT}/bin"
+
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 

@@ -21,11 +21,8 @@ setup_golang() {
     exit "script only works for linux and mac OS"
   fi  
 
-
   mkdir -p /Users/${USER}/Work/Repos/go/{bin,src,pkg}
-  export GOPATH="/Users/${USER}/Work/Repos/go"
   mkdir -p $GOPATH/src/github.com/FlorinBalint
-  export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 }
 
 setup_java() {
