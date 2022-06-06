@@ -22,7 +22,7 @@ setup_golang() {
   fi  
 
 
-  mkdir -p "/Users/${USER}/Work/Repos/go/{bin,src,pkg}"
+  mkdir -p /Users/${USER}/Work/Repos/go/{bin,src,pkg}
   export GOPATH="/Users/${USER}/Work/Repos/go"
   mkdir -p $GOPATH/src/github.com/FlorinBalint
   export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
