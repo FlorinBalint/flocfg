@@ -31,6 +31,7 @@ setup_golang() {
 setup_java() {
   if environment_mac; then
     brew cask install java
+    
   elif environment_linux; then
     sudo apt install default-jre
     sudo apt install default-jdk
@@ -63,6 +64,9 @@ setup_mac_utils() {
   brew install docker
   brew install kubectl
   brew install helm
+  brew install gh
+  brew install protobuf
+  brew install gradle
 }
 
 setup_linux_utils() {
@@ -92,6 +96,38 @@ setup_linux_utils() {
     sudo apt-get update
     sudo apt-get install helm
   fi
+
+  if [ $(gradle --version)]; then
+    echo "gradle is already installed"
+  else # install gradle
+    wget https://services.gradle.org/distributions/gradle-5.0-bin.zip -P /tmp
+    sudo unzip -d /opt/gradle /tmp/gradle-*.zip
+    sudo cat >/etc/profile.d/gradle.sh << EOF `
+export GRADLE_HOME=/opt/gradle/gradle-5.0
+export PATH=${GRADLE_HOME}/bin:${PATH}
+`
+EOF
+  fi
+
+  if [ $(gh --version)]; then
+    echo "Github CLI already installed"
+  else # install github CLI
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | 
+      sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+    sudo apt update
+    sudo apt install gh
+  fi
+
+  if [ $(protoc -version) ]; then
+    echo "Protobuffer tools already installed"
+  else 
+    PROTOC_ZIP=protoc-3.14.0-linux-x86_64.zip
+    curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v3.14.0/$PROTOC_ZIP
+    sudo unzip -o $PROTOC_ZIP -d /usr/local bin/protoc
+    sudo unzip -o $PROTOC_ZIP -d /usr/local 'include/*'
+    rm -f $PROTOC_ZIP
+  fi  
 }
 
 if environment_mac; then
