@@ -56,6 +56,7 @@ setup_mac_utils() {
   fi
 
   brew install coreutils
+  brew install bazel
   brew install gmsh
   brew install git
   brew install docker
@@ -124,7 +125,20 @@ EOF
     sudo unzip -o $PROTOC_ZIP -d /usr/local bin/protoc
     sudo unzip -o $PROTOC_ZIP -d /usr/local 'include/*'
     rm -f $PROTOC_ZIP
-  fi  
+  fi
+
+  if [ $(bazel --version) ]; then
+    echo "Bazel is already installed"
+  else
+    sudo apt install apt-transport-https curl gnupg
+    curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor >bazel-archive-keyring.gpg
+    sudo mv bazel-archive-keyring.gpg /usr/share/keyrings
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] https://storage.googleapis.com/bazel-apt stable jdk1.8" \
+       | sudo tee /etc/apt/sources.list.d/bazel.list
+    sudo apt update && sudo apt install bazel
+  fi
+
+  sudo apt update && sudo apt full-upgrade
 }
 
 if environment_mac; then

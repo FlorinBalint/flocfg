@@ -57,3 +57,6 @@ alias cpuinfo='lscpu'
  
 ## get GPU ram on desktop / laptop##
 alias gpumeminfo='grep -i --color memory /var/log/Xorg.0.log'
+
+# Development help
+alias blaze=bazel
