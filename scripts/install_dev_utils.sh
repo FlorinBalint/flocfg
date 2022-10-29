@@ -8,6 +8,20 @@ SCRIPT=`realpath $0`
 SCRIPT_DIR=`dirname $SCRIPT`
 source ${SCRIPT_DIR}/environment.sh || exit 1
 
+setup_c() {
+  if environment_mac; then
+    if [ ! $(xcode-select -p) ]; then
+      xcode-select --install
+    fi
+    xcodebuild -runFirstLaunch
+  elif environment_linux; then
+    sudo apt install build-essential
+    sudo apt-get install manpages-dev
+  else
+    exit "script only works for linux and mac OS"
+  fi
+}
+
 setup_golang() {
   if environment_mac; then
     brew update && brew install golang
@@ -149,6 +163,7 @@ else
   exit "script only works for linux and mac OS"
 fi
 
+setup_c
 setup_golang
 setup_java
 setup_python
