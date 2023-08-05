@@ -7,7 +7,7 @@
 
 SCRIPT=`realpath $0`
 SCRIPT_DIR=`dirname $SCRIPT`
-source ${SCRIPT_DIR}/environment.sh || exit 1
+. ${SCRIPT_DIR}/environment.sh || exit 1
 
 get_fonts() {
   local fonts_dir
@@ -19,6 +19,7 @@ get_fonts() {
     exit "script only works for linux and macOS"
   fi
 
+  mkdir -p ${fonts_dir}
   if [ $(ls ${fonts_dir} | grep "Menlo.*Powerline.ttf" | wc -l) -ne 4 ]; then
     echo "Installing Menlo for Powerline font"
     cd ${HOME}/Work/Repos && git clone https://github.com/abertsch/Menlo-for-Powerline.git
@@ -53,7 +54,7 @@ setup_terminator() {
   # TODO(florinbalint): configure the app
 }
 
-setup_omz() {
+setup_omzsh() {
   omz_script_url="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
   if [ -d ~/.oh-my-zsh ]; then
     echo "Oh My ZSH already installed"
@@ -72,10 +73,10 @@ if environment_linux; then
   which zsh&>/dev/null || sudo apt-get install zsh -y
   chsh -s /usr/bin/zsh # Make zsh default
   setup_terminator
-  setup_omz
+  setup_omzsh
 elif environment_mac; then
   setup_iterm
-  setup_omz
+  setup_omzsh
 else
   exit "script only works for linux and macOS"
 fi

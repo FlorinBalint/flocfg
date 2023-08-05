@@ -6,7 +6,7 @@
 
 SCRIPT=`realpath $0`
 SCRIPT_DIR=`dirname $SCRIPT`
-source ${SCRIPT_DIR}/environment.sh || exit 1
+. ${SCRIPT_DIR}/environment.sh || exit 1
 
 install_vscode() {
   if environment_mac; then

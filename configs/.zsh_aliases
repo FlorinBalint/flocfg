@@ -28,7 +28,7 @@ alias pushc='pushd -n $(pwd)'
 
 if [ "$(uname)" = "Darwin" ]; then
     # Using MAC OS, use brew instead
-# alias brew='sudo brew install'      
+    # alias brew='sudo brew install'      
 elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     # Using Linux, use apt-get
     alias apt-get="sudo apt-get"

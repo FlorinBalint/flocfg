@@ -6,7 +6,7 @@
 
 SCRIPT=`realpath $0`
 SCRIPT_DIR=`dirname $SCRIPT`
-source ${SCRIPT_DIR}/environment.sh || exit 1
+. ${SCRIPT_DIR}/environment.sh || exit 1
 
 WINDOWS_BINDINGS_FILE="${SCRIPT_DIR}/../configs/DefaultKeyBinding.Dict"
 

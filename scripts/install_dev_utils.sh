@@ -6,7 +6,7 @@
 
 SCRIPT=`realpath $0`
 SCRIPT_DIR=`dirname $SCRIPT`
-source ${SCRIPT_DIR}/environment.sh || exit 1
+. ${SCRIPT_DIR}/environment.sh || exit 1
 
 setup_c() {
   if environment_mac; then
@@ -61,6 +61,18 @@ setup_python() {
   fi
 }
 
+setup_webdev() {
+  if environment_mac; then
+    brew install node
+    npm install -g @angular/cli
+  elif environment_linux; then
+    sudo apt-get install nodejs npm
+    npm install -g @angular/cli
+  else
+    exit "script only works for linux and mac OS"
+  fi
+}
+
 setup_mac_utils() {
   # Install Homebrew if needed
   if [ $(command -v brew) == "" ]; then
@@ -85,10 +97,11 @@ setup_linux_utils() {
   sudo apt update -y
   sudo apt install -y coreutils
   sudo apt-get install gmsh -y
-  sudo apt intsall -y git
-  sudo apt-get install docker-ce docker-ce-cli containerd.io
+  sudo apt install -y git
+  sudo apt-get install docker.io
+  sudo snap install docker
 
-  if [ $(kubectl version --client) ]; then
+  if [ $(kubectl version --short) ]; then
     echo "kubectl is already installed"
   else
     # Install kubectl
@@ -112,13 +125,13 @@ setup_linux_utils() {
   if [ $(gradle --version)]; then
     echo "gradle is already installed"
   else # install gradle
-    wget https://services.gradle.org/distributions/gradle-5.0-bin.zip -P /tmp
-    sudo unzip -d /opt/gradle /tmp/gradle-*.zip
-    sudo cat >/etc/profile.d/gradle.sh << EOF `
-export GRADLE_HOME=/opt/gradle/gradle-5.0
-export PATH=${GRADLE_HOME}/bin:${PATH}
-`
-EOF
+    wget -c https://services.gradle.org/distributions/gradle-7.4.2-bin.zip -P /tmp
+    sudo unzip -d /opt/gradle /tmp/gradle-7.4.2-bin.zip
+
+    sudo sh -c "echo export GRADLE_HOME=/opt/gradle/gradle-7.4.2 > /etc/profile.d/gradle.sh"
+    sudo sh -c "echo export PATH=${GRADLE_HOME}/bin:${PATH} >> /etc/profile.d/gradle.sh"
+    sudo chmod +x /etc/profile.d/gradle.sh
+    . /etc/profile.d/gradle.sh
   fi
 
   if [ $(gh --version)]; then
@@ -134,22 +147,18 @@ EOF
   if [ $(protoc -version) ]; then
     echo "Protobuffer tools already installed"
   else 
-    PROTOC_ZIP=protoc-3.14.0-linux-x86_64.zip
-    curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v3.14.0/$PROTOC_ZIP
-    sudo unzip -o $PROTOC_ZIP -d /usr/local bin/protoc
-    sudo unzip -o $PROTOC_ZIP -d /usr/local 'include/*'
-    rm -f $PROTOC_ZIP
+    apt install -y protobuf-compiler
   fi
 
   if [ $(bazel --version) ]; then
     echo "Bazel is already installed"
   else
-    sudo apt install apt-transport-https curl gnupg
+    sudo apt install apt-transport-https curl gnupg -y
     curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor >bazel-archive-keyring.gpg
     sudo mv bazel-archive-keyring.gpg /usr/share/keyrings
-    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] https://storage.googleapis.com/bazel-apt stable jdk1.8" \
-       | sudo tee /etc/apt/sources.list.d/bazel.list
-    sudo apt update && sudo apt install bazel
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] https://storage.googleapis.com/bazel-apt stable jdk1.8" | 
+        sudo tee /etc/apt/sources.list.d/bazel.list
+    sudo apt install bazel
   fi
 
   sudo apt update && sudo apt full-upgrade
@@ -167,3 +176,4 @@ setup_c
 setup_golang
 setup_java
 setup_python
+setup_webdev
