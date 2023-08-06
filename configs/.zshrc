@@ -76,7 +76,15 @@ source $ZSH/oh-my-zsh.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-export GOPATH="/Users/${USER}/Work/Repos/go"
+case $(uname | tr '[:upper:]' '[:lower:]') in
+linux*)
+    export GOPATH="/home/${USER}/Work/Repos/go"
+    ;;
+  darwin*)
+    export GOPATH="/Users/${USER}/Work/Repos/go"
+    ;;
+esac
+
 export GOBIN=$GOPATH/bin
 export GOROOT=$(go env GOROOT)
 export PATH="$PATH:$GOBIN:${GOROOT}/bin"

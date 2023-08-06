@@ -23,17 +23,21 @@ setup_c() {
 }
 
 setup_golang() {
+  local user_dir
   if environment_mac; then
     brew update && brew install golang
     export GOROOT="$(brew --prefix golang)/libexec"
+    user_dir="/Users/${USER}/"
+    
   elif environment_linux; then
     add-apt-repository ppa:ubuntu-lxc/stable
     sudo apt-get update
     sudo apt-get -y upgrade
     sudo apt-get install golang
+    mkdir -p /home/${USER}/Work/Repos/go/{bin,src,pkg}
   else
     exit "script only works for linux and mac OS"
-  fi  
+  fi 
 
   mkdir -p /Users/${USER}/Work/Repos/go/{bin,src,pkg}
   mkdir -p $GOPATH/src/github.com/FlorinBalint
