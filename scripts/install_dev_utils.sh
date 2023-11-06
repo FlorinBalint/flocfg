@@ -66,6 +66,11 @@ setup_python() {
 }
 
 setup_webdev() {
+  if [ $( which node ) ] && [ $( which ng) ]; then
+    echo "NodeJS and Angular already installed"
+    return
+  fi
+
   if environment_mac; then
     brew install node
     npm install -g @angular/cli
@@ -99,6 +104,7 @@ setup_mac_utils() {
 
 setup_linux_utils() {
   sudo apt update -y
+  # TODO: Check if the packages are installed before installing
   sudo apt install -y coreutils
   sudo apt-get install gmsh -y
   sudo apt install -y git

@@ -41,6 +41,8 @@ edit_vscode_settings() {
    fi
 }
 
-install_vscode
-install_vscode_extensions
-edit_vscode_settings
+if ! $( which code ); then
+  install_vscode
+  install_vscode_extensions
+  edit_vscode_settings
+fi  
