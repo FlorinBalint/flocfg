@@ -6,4 +6,9 @@
 SCRIPT=`realpath $0`
 SCRIPT_DIR=`dirname $SCRIPT`
 VIMRC_FILE="${SCRIPT_DIR}/../configs/.vimrc"
+
+if ! [ $( which vim ) ]; then
+  sudo apt install vim     
+fi
+
 cp ${VIMRC_FILE} ${HOME}

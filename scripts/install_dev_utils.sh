@@ -108,6 +108,7 @@ setup_linux_utils() {
   sudo apt install -y coreutils
   sudo apt-get install gmsh -y
   sudo apt install -y git
+  git config --global core.editor "vim"
   sudo apt-get install docker.io
   sudo snap install docker
 
