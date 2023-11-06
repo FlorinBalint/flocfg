@@ -71,7 +71,7 @@ setup_webdev() {
     npm install -g @angular/cli
   elif environment_linux; then
     sudo apt-get install nodejs npm
-    npm install -g @angular/cli
+    sudo npm install -g @angular/cli
   else
     exit "script only works for linux and mac OS"
   fi
@@ -105,17 +105,18 @@ setup_linux_utils() {
   sudo apt-get install docker.io
   sudo snap install docker
 
-  if [ $(kubectl version --short) ]; then
+  if [ $(which kubectl) ]; then
     echo "kubectl is already installed"
   else
     # Install kubectl
     sudo apt-get install -y apt-transport-https ca-certificates curl
-    sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
-    echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-    sudo apt-get install -y kubectl
+    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+    echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+    sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
   fi
 
-  if [ $(helm version) ]; then
+  if [ $(which helm) ]; then
     echo "helm is already installed"
   else
     # Install helm
@@ -126,7 +127,7 @@ setup_linux_utils() {
     sudo apt-get install helm
   fi
 
-  if [ $(gradle --version)]; then
+  if [ $(which gradle)]; then
     echo "gradle is already installed"
   else # install gradle
     wget -c https://services.gradle.org/distributions/gradle-7.4.2-bin.zip -P /tmp
@@ -138,7 +139,7 @@ setup_linux_utils() {
     . /etc/profile.d/gradle.sh
   fi
 
-  if [ $(gh --version)]; then
+  if [ $(which gh)]; then
     echo "Github CLI already installed"
   else # install github CLI
     curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
@@ -148,13 +149,13 @@ setup_linux_utils() {
     sudo apt install gh
   fi
 
-  if [ $(protoc -version) ]; then
+  if [ $(which protoc) ]; then
     echo "Protobuffer tools already installed"
   else 
     apt install -y protobuf-compiler
   fi
 
-  if [ $(bazel --version) ]; then
+  if [ $(which bazel) ]; then
     echo "Bazel is already installed"
   else
     sudo apt install apt-transport-https curl gnupg -y
